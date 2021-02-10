@@ -40,7 +40,7 @@ public class BuyingProductsStepDefinition {
         theActorInTheSpotlight().attemptsTo(AddProduct.toTheCart(nameProduct));
     }
 
-    @When("He puts in the cart the following products")
+    @When("He puts in the cart these products")
     public void actorPutShirtCart(List<Map<String, String>> products) {
         theActorInTheSpotlight().attemptsTo(AddProducts.toCart(products));
     }

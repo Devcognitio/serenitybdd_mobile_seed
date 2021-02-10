@@ -9,10 +9,13 @@ import net.serenitybdd.screenplay.actions.Enter;
 import net.serenitybdd.screenplay.actions.ScrollTo;
 import net.serenitybdd.screenplay.actions.SendKeys;
 import net.serenitybdd.screenplay.conditions.Check;
+import net.serenitybdd.screenplay.waits.WaitUntil;
 
 import static co.com.devco.userinterface.CheckoutPage.*;
+import static co.com.devco.userinterface.ProductPage.BTN_ADD_TO_CART;
 import static co.com.devco.userinterface.ProductPage.BTN_OPEN_SHOP_CART;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isClickable;
 
 public class Checkout implements Task {
     @Override
@@ -25,6 +28,7 @@ public class Checkout implements Task {
                 Enter.theValue("Fernandez").into(TXT_LAST_NAME),
                 SendKeys.of("050005").into(TXT_POST_CODE),
                 Click.on(BTN_CONTINUE),
+                Scroll.untilVisibleTarget(BTN_FINISH),
                 Click.on(BTN_FINISH));
     }
 

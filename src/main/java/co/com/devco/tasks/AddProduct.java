@@ -20,7 +20,9 @@ public class AddProduct implements Task {
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
+                Scroll.untilVisibleTarget(LBL_NAME_PRODUCT.of(nameProduct)),
                 Click.on(LBL_NAME_PRODUCT.of(nameProduct)),
+                Scroll.untilVisibleTarget(BTN_ADD_TO_CART),
                 Click.on(BTN_ADD_TO_CART));
     }
 

@@ -8,11 +8,11 @@ Feature: Use Shopping Cart
 
   Scenario: Buying differents products at SwagLabs
     Given that Juan is login on SwagLabs app
-    When He puts in the cart the following products
+    When He puts in the cart these products
       | products                   |
       | Sauce Labs Backpack     |
       | Sauce Labs Bike Light |
       | Sauce Labs Fleece Jacket |
     And He does the checkout of his purchase
-    Then He should see the message CHECKOUT: COMPLETADO!
+    Then He should see the message CHECKOUT: COMPLETE!
 

@@ -5,11 +5,11 @@ import co.com.devco.questions.Purchase;
 import co.com.devco.tasks.AddProduct;
 import co.com.devco.tasks.AddProducts;
 import co.com.devco.tasks.Login;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.serenitybdd.screenplay.ensure.Ensure;
@@ -30,12 +30,12 @@ public class BuyingProductsStepDefinition {
         OnStage.setTheStage(new OnlineCast());
     }
 
-    @Given("that (.*) signed-in SwagLabs app")
+    @Given("that {word} signed-in SwagLabs app")
     public void actorWantsBuyShirts(String actor) {
         theActorCalled(actor).attemptsTo(Login.atSwagLabs());
     }
 
-    @When("He puts in the cart the (.*)")
+    @When("He puts in the cart the {string}")
     public void actorPutShirtCart(String nameProduct) {
         theActorInTheSpotlight().attemptsTo(AddProduct.toTheCart(nameProduct));
     }
@@ -55,7 +55,7 @@ public class BuyingProductsStepDefinition {
         theActorInTheSpotlight().should(seeThat(Purchase.isSuccesful()).orComplainWith(PurchaseIsNotCompleteException.class, PURCHASE_FAILED_MESSAGE_EXCEPTION));
     }
 
-    @Then("He should see the message (.*)")
+    @Then("He should see the message {string}")
     public void actorShouldSeeCheckout(String confirmationMessage) {
         withCurrentActor(Ensure.that(LBL_CHECKOUT_COMPLETE).text().contains(confirmationMessage));
     }

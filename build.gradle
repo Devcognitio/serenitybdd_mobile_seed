@@ -1,5 +1,5 @@
 group 'serenity_mobile_base_project'
-version '1.0-SNAPSHOT'
+version '1.0.0'
 
 repositories {
     mavenCentral()
@@ -14,7 +14,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.70")
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.3.31")
     }
 }
 
@@ -29,25 +29,48 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+test {
+    testLogging.showStandardStreams = true
+    testLogging.exceptionFormat = 'full'
+    systemProperties = System.properties
+    maxParallelForks = Runtime.runtime.availableProcessors() - 1
+}
+
 ext{
-    serenityVersion = '2.0.70'
-    serenityCucumberVersion = '1.9.45'
+    serenityVersion = '2.3.31'
+    serenityCucumberVersion = '2.2.6'
+    cucumberVersion = '5.6.0'
+}
+
+configurations.all {
+    resolutionStrategy {
+        force "io.cucumber:cucumber-core:$rootProject.ext.cucumberVersion"
+    }
 }
 
 dependencies {
     implementation "net.serenity-bdd:serenity-core:$rootProject.ext.serenityVersion"
-    implementation "net.serenity-bdd:serenity-cucumber:$rootProject.ext.serenityCucumberVersion"
-    implementation "net.serenity-bdd:serenity-screenplay:$rootProject.ext.serenityVersion"
-    implementation "net.serenity-bdd:serenity-screenplay-webdriver:$rootProject.ext.serenityVersion"
-    implementation "net.serenity-bdd:serenity-ensure:$rootProject.ext.serenityVersion"
     implementation "net.serenity-bdd:serenity-junit:$rootProject.ext.serenityVersion"
-    implementation "co.com.devco.automation:automationDevcoLibrary:1.3.6"
-    implementation 'io.appium:java-client:7.0.0'
+    implementation "net.serenity-bdd:serenity-screenplay:$rootProject.ext.serenityVersion"
+
+    implementation "net.serenity-bdd:serenity-cucumber5:$rootProject.ext.serenityCucumberVersion"
+    implementation "io.cucumber:cucumber-core:$rootProject.ext.cucumberVersion"
+    implementation "io.cucumber:cucumber-junit:$rootProject.ext.cucumberVersion"
+    implementation "io.cucumber:cucumber-java:$rootProject.ext.cucumberVersion"
+
+    testCompile "net.serenity-bdd:serenity-ensure:$rootProject.ext.serenityVersion"
+    implementation "net.serenity-bdd:serenity-screenplay-webdriver:$rootProject.ext.serenityVersion"
+
+    implementation "co.com.devco.automation:automationDevcoLibrary:1.3.7"
+
+    implementation 'io.appium:java-client:7.5.0'
+
     implementation 'org.apache.logging.log4j:log4j-api:2.14.0'
     implementation 'org.apache.logging.log4j:log4j-core:2.14.0'
+
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.hamcrest:hamcrest-all:1.3'
-    testImplementation 'org.assertj:assertj-core:3.8.0'
+    testImplementation 'org.assertj:assertj-core:1.7.0'
 }
 
 gradle.startParameter.continueOnFailure = true

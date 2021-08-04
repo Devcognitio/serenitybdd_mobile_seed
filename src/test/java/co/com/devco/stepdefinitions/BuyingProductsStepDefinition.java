@@ -13,7 +13,7 @@ public class BuyingProductsStepDefinition {
     @Given("^add products to the cart$")
     public void addProductsCart(ProductRecord products) {
         actor.attemptsTo(
-                Select.theProducts(products.shirt(), products.tennis()),
+                Select.theProducts(products),
                 AddProducts.toCart()
         );
     }

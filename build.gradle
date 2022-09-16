@@ -1,76 +1,48 @@
-group 'serenity_mobile_base_project'
-version '1.0.0'
+plugins {
+    id "net.serenity-bdd.serenity-gradle-plugin" version "3.3.0"
+    id 'java'
+    id 'eclipse'
+    id 'idea'
+}
+
+defaultTasks 'clean','test','aggregate'
 
 repositories {
     mavenCentral()
-    mavenLocal()
-    jcenter()
 }
-
-buildscript {
-    repositories {
-        mavenCentral()
-        mavenLocal()
-        jcenter()
-    }
-    dependencies {
-        classpath("net.serenity-bdd:serenity-gradle-plugin:2.3.31")
-    }
-}
-
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'net.serenity-bdd.aggregator'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
-test {
-    testLogging.showStandardStreams = true
-    testLogging.exceptionFormat = 'full'
-    systemProperties = System.properties
-    maxParallelForks = Runtime.runtime.availableProcessors() - 1
-}
-
-ext{
-    serenityVersion = '2.3.31'
-    serenityCucumberVersion = '2.2.6'
-    cucumberVersion = '5.6.0'
-}
-
-configurations.all {
-    resolutionStrategy {
-        force "io.cucumber:cucumber-core:$rootProject.ext.cucumberVersion"
-    }
+ext {
+    slf4jVersion = '1.7.7'
+    serenityCoreVersion = '3.3.4'
+    serenityCucumberVersion = '3.3.4'
+    junitVersion = '5.8.2'
+    assertJVersion = '3.22.0'
+    logbackVersion = '1.2.10'
 }
 
 dependencies {
-    implementation "net.serenity-bdd:serenity-core:$rootProject.ext.serenityVersion"
-    implementation "net.serenity-bdd:serenity-junit:$rootProject.ext.serenityVersion"
-    implementation "net.serenity-bdd:serenity-screenplay:$rootProject.ext.serenityVersion"
+    implementation "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-junit5:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
+            "org.junit.jupiter:junit-jupiter-api:${junitVersion}",
+            "org.assertj:assertj-core:${assertJVersion}",
+            "ch.qos.logback:logback-classic:${logbackVersion}",
+            "net.serenity-bdd:serenity-cucumber:${serenityCucumberVersion}"
 
-    implementation "net.serenity-bdd:serenity-cucumber5:$rootProject.ext.serenityCucumberVersion"
-    implementation "io.cucumber:cucumber-core:$rootProject.ext.cucumberVersion"
-    implementation "io.cucumber:cucumber-junit:$rootProject.ext.cucumberVersion"
-    implementation "io.cucumber:cucumber-java:$rootProject.ext.cucumberVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+}
 
-    testCompile "net.serenity-bdd:serenity-ensure:$rootProject.ext.serenityVersion"
-    implementation "net.serenity-bdd:serenity-screenplay-webdriver:$rootProject.ext.serenityVersion"
-
-    implementation "co.com.devco.automation:automationDevcoLibrary:1.3.7"
-
-    implementation 'io.appium:java-client:7.5.0'
-
-    implementation 'org.apache.logging.log4j:log4j-api:2.14.0'
-    implementation 'org.apache.logging.log4j:log4j-core:2.14.0'
-
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.hamcrest:hamcrest-all:1.3'
-    testImplementation 'org.assertj:assertj-core:1.7.0'
+test {
+    useJUnitPlatform()
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
 }
 
 gradle.startParameter.continueOnFailure = true
+
+test.finalizedBy(aggregate)

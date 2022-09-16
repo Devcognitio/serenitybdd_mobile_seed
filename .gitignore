@@ -50,3 +50,5 @@ target/
 
 # Maven
 log/
+
+.java-version

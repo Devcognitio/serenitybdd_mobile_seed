@@ -16,8 +16,8 @@ targetCompatibility = 1.8
 
 ext {
     slf4jVersion = '1.7.7'
-    serenityCoreVersion = '3.3.4'
-    serenityCucumberVersion = '3.3.4'
+    serenityCoreVersion = '3.3.5'
+    serenityCucumberVersion = '3.3.5'
     junitVersion = '5.8.2'
     assertJVersion = '3.22.0'
     logbackVersion = '1.2.10'
@@ -38,7 +38,6 @@ dependencies {
 }
 
 test {
-    useJUnitPlatform()
     testLogging.showStandardStreams = true
     systemProperties System.getProperties()
 }

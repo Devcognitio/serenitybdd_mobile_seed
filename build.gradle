@@ -23,16 +23,15 @@ ext {
 }
 
 dependencies {
-    implementation "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
+    testImplementation "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-junit5:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-cucumber:${serenityCoreVersion}",
             "org.junit.jupiter:junit-jupiter-api:${junitVersion}",
             "org.assertj:assertj-core:${assertJVersion}",
-            "ch.qos.logback:logback-classic:${logbackVersion}",
-            "net.serenity-bdd:serenity-cucumber:${serenityCoreVersion}"
-
+            "ch.qos.logback:logback-classic:${logbackVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
 }
 

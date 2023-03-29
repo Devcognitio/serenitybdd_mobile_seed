@@ -11,9 +11,9 @@ public class AddProduct{
 
     public static Task toTheCart(String nameProduct) {
         return Task.where(
-                Scroll.to(LBL_NAME_PRODUCT.of(nameProduct)),
+                //Scroll.to(LBL_NAME_PRODUCT.of(nameProduct)),
                 Click.on(LBL_NAME_PRODUCT.of(nameProduct)),
-                Scroll.to(BTN_ADD_TO_CART),
+                //Scroll.to(BTN_ADD_TO_CART),
                 Click.on(BTN_ADD_TO_CART)
         );
     }

@@ -14,4 +14,13 @@ and need to change in serenity.properties:
 ```
 appium.app = PATH_DOWNLOADED_APP
 ```
+------------
+
+To run
+```
+appium server
+# and execute the appium inspector if you work with appium 2
+```
 If you want to change the version you can see the releases and change the link in the same property.
+
+

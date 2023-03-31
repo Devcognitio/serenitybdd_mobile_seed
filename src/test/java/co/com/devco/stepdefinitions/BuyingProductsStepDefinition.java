@@ -1,7 +1,5 @@
 package co.com.devco.stepdefinitions;
 
-import co.com.devco.exceptions.PurchaseIsNotCompleteException;
-import co.com.devco.questions.Purchase;
 import co.com.devco.tasks.AddProduct;
 import co.com.devco.tasks.AddProducts;
 import co.com.devco.tasks.Login;
@@ -17,10 +15,8 @@ import net.serenitybdd.screenplay.ensure.Ensure;
 import java.util.List;
 import java.util.Map;
 
-import static co.com.devco.exceptions.PurchaseIsNotCompleteException.PURCHASE_FAILED_MESSAGE_EXCEPTION;
 import static co.com.devco.tasks.Checkout.checkout;
 import static co.com.devco.userinterface.CheckoutCompletadoPage.LBL_CHECKOUT_COMPLETE;
-import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.actors.OnStage.*;
 
 public class BuyingProductsStepDefinition {
@@ -48,11 +44,6 @@ public class BuyingProductsStepDefinition {
     @And("He does the checkout of his purchase")
     public void checkoutPurchase() {
         theActorInTheSpotlight().attemptsTo(checkout());
-    }
-
-    @Then("He should see that his purchase is successful")
-    public void actorShouldSeePurchase() {
-        theActorInTheSpotlight().should(seeThat(Purchase.isSuccesful()).orComplainWith(PurchaseIsNotCompleteException.class, PURCHASE_FAILED_MESSAGE_EXCEPTION));
     }
 
     @Then("He should see the message {string}")

@@ -1,11 +1,11 @@
 plugins {
-    id "net.serenity-bdd.serenity-gradle-plugin" version "3.5.1"
+    id "net.serenity-bdd.serenity-gradle-plugin" version "3.5.0"
     id 'java'
     id 'eclipse'
     id 'idea'
 }
 
-defaultTasks 'clean','test','aggregate'
+defaultTasks 'clean', 'test', 'aggregate'
 
 repositories {
     mavenCentral()
@@ -34,12 +34,12 @@ dependencies {
             "ch.qos.logback:logback-classic:${logbackVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
 
+
     testImplementation 'io.appium:java-client:8.3.0'
 
 }
 
 test {
-    useJUnitPlatform()
     testLogging.showStandardStreams = true
     systemProperties System.getProperties()
 }

@@ -5,7 +5,7 @@ plugins {
     id 'idea'
 }
 
-defaultTasks 'clean','test','aggregate'
+defaultTasks 'clean', 'test', 'aggregate'
 
 repositories {
     mavenCentral()
@@ -16,7 +16,7 @@ targetCompatibility = 1.8
 
 ext {
     slf4jVersion = '1.7.7'
-    serenityCoreVersion = '3.5.1'
+    serenityCoreVersion = '3.6.21'
     junitVersion = '5.8.2'
     assertJVersion = '3.22.0'
     logbackVersion = '1.2.10'
@@ -33,6 +33,7 @@ dependencies {
             "org.assertj:assertj-core:${assertJVersion}",
             "ch.qos.logback:logback-classic:${logbackVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+
 
     testImplementation 'io.appium:java-client:8.3.0'
 

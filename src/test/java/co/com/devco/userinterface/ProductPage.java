@@ -1,5 +1,6 @@
 package co.com.devco.userinterface;
 
+import co.com.devco.automation.mobile.actions.Scroll;
 import io.appium.java_client.AppiumBy;
 import net.serenitybdd.screenplay.targets.Target;
 

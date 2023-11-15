@@ -26,7 +26,7 @@ public class BuyingProductsStepDefinition {
         OnStage.setTheStage(new OnlineCast());
     }
 
-    @Given("that {word} signed-in SwagLabs app")
+    @Given("^that (.*) signed-in SwagLabs app$")
     public void actorWantsBuyShirts(String actor) {
         theActorCalled(actor).attemptsTo(Login.atSwagLabs());
     }

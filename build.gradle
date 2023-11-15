@@ -1,48 +1,59 @@
-plugins {
-    id "net.serenity-bdd.serenity-gradle-plugin" version "3.5.0"
-    id 'java'
-    id 'eclipse'
-    id 'idea'
-}
-
 defaultTasks 'clean', 'test', 'aggregate'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "net.serenity-bdd:serenity-gradle-plugin:4.0.15"
+    }
+}
+
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: "net.serenity-bdd.serenity-gradle-plugin"
 
 sourceCompatibility = 11
 targetCompatibility = 11
 
 ext {
-    slf4jVersion = '1.7.7'
-    serenityCoreVersion = '3.6.21'
-    junitVersion = '5.8.2'
-    assertJVersion = '3.22.0'
-    logbackVersion = '1.2.10'
+    serenity_version = '4.0.12'
+    logback_classic_version = "1.2.10"
+    assertj_core_version = "3.23.1"
+    seleniumVersion = '4.13.0'
+    junitVersion = '5.9.2'
 }
 
 dependencies {
-    testImplementation "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
-            "net.serenity-bdd:serenity-junit5:${serenityCoreVersion}",
-            "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
-            "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}",
-            "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
-            "net.serenity-bdd:serenity-cucumber:${serenityCoreVersion}",
-            "org.junit.jupiter:junit-jupiter-api:${junitVersion}",
-            "org.assertj:assertj-core:${assertJVersion}",
-            "ch.qos.logback:logback-classic:${logbackVersion}"
-    implementation "co.com.devco.automation:automationDevcoLibrary:2.0.2"
+    implementation "net.serenity-bdd:serenity-core:${serenity_version}"
+    implementation "net.serenity-bdd:serenity-cucumber:${serenity_version}"
+    implementation "net.serenity-bdd:serenity-screenplay:${serenity_version}"
+    implementation "net.serenity-bdd:serenity-screenplay-webdriver:${serenity_version}"
+    implementation "net.serenity-bdd:serenity-ensure:${serenity_version}"
+    implementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+    implementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    implementation 'io.appium:java-client:8.5.1'
+    testImplementation 'junit:junit:4.13.2'
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
-
-
-    testImplementation 'io.appium:java-client:8.3.0'
-
+    implementation "ch.qos.logback:logback-classic:${logback_classic_version}"
+    implementation "net.serenity-bdd:serenity-screenplay-rest:${serenity_version}"
+    testImplementation "org.assertj:assertj-core:${assertj_core_version}"
+    implementation "net.serenity-bdd:serenity-junit5:${serenity_version}"
+    implementation "co.com.devco.automation:automationDevcoLibrary:2.0.2"
+    testImplementation 'org.slf4j:slf4j-simple:2.0.9'
 }
 
 test {
-    testLogging.showStandardStreams = true
-    systemProperties System.getProperties()
+    useJUnitPlatform()
 }
 
 gradle.startParameter.continueOnFailure = true
